@@ -2,21 +2,14 @@
 #define GRADER_H
 
 #include "Student.h"
-#include <vector>
 
 class Grader {
 public:
     // Calculate letter grade from total score (0-100)
-    static char calculateLetterGrade(double totalScore);
+    static std::string calculateLetterGrade(double totalScore);
     
     // Calculate grade point from letter grade
-    static double getGradePoint(char grade);
-    
-    // Calculate SGPA for a student based on their courses
-    static double calculateSGPA(const Student& student);
-    
-    // Update student's GPA
-    static void updateStudentGPA(Student& student);
+    static double getGradePoint(const std::string& grade);
     
     // Add or update a course grade for a student
     static void gradeCourse(Student& student, const std::string& courseCode,

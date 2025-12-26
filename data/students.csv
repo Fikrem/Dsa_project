@@ -9,5 +9,6 @@ id,password_hash,first_name,last_name,department,age,sex,year_of_study,section,c
 008,5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5,Lisa,Wilson,ME,21,F,1,A,"ENG101:49:50:A:2|MATH101:46:45:A:4|ME101:47:48:A:3|PHYS101:44:46:A:3"
 009,5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5,James,Moore,ME,22,M,2,A,"MATH201:40:42:B:3|ME201:43:45:B:4|ME202:42:44:B:3"
 010,5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5,Amanda,Taylor,CS,19,F,1,B,"CS101:44:46:A:3|ENG101:46:47:A:2|MATH101:42:43:B:4|PHYS101:40:41:B:3"
-0576,7270c9de93e68ec9,Fikremariam,Debela,Software engineering,21,M,3,B,""
+0563,652f1490483,abebe,kebede,SE,20,M,3,B,"SWEG3101:50:49:A:3|SWEG3103:48:49:A:4|SWEG3105:0:0:F:4|SWEG3107:0:0:F:3|SWEG3109:0:0:F:4"
+0576,7270c9de93e68ec9,Fikremariam,Debela,SE,21,M,3,B,""
 0577,7270c9de93e68ec9,fikremariam,debela,SE,21,M,3,B,"CS303:50:45:A:3"

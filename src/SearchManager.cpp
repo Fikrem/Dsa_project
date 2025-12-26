@@ -17,66 +17,24 @@ vector<Student> SearchManager::search(const vector<Student>& students,
     return results;
 }
 
-Student* SearchManager::searchById(vector<Student>& students, const string& id) {
-    // Binary search would work if sorted by ID
-    for (Student& student : students) {
-        if (student.getId() == id) {
-            return &student;
-        }
-    }
-    return nullptr;
-}
-
-vector<Student> SearchManager::searchByName(const vector<Student>& students,
-                                                 const string& name) {
-    vector<Student> results;
-    string lowerName = name;
-    transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
-    
-    for (const Student& student : students) {
-        string fullName = student.getFullName();
-        transform(fullName.begin(), fullName.end(), fullName.begin(), ::tolower);
-        
-        if (fullName.find(lowerName) != string::npos) {
-            results.push_back(student);
-        }
-    }
-    
-    return results;
-}
-
-vector<Student> SearchManager::searchByGPA(const vector<Student>& students,
-                                               double minGPA, double maxGPA) {
-    vector<Student> results;
-    
-    for (const Student& student : students) {
-        double gpa = student.getGPA();
-        if (gpa >= minGPA && gpa <= maxGPA) {
-            results.push_back(student);
-        }
-    }
-    
-    return results;
-}
-
 bool SearchManager::matchesCriteria(const Student& student, const SearchCriteria& criteria,
                                    SearchMode mode) {
     int matchCount = 0;
     int criteriaCount = 0;
     
     // Check ID
-    if (criteria.id.has_value()) {
+    if (!criteria.id.empty()) {
         criteriaCount++;
-        if (student.getId() == criteria.id.value()) {
+        if (student.getId() == criteria.id) {
             matchCount++;
         }
     }
     
     // Check first name
-    if (criteria.firstName.has_value()) {
+    if (!criteria.firstName.empty()) {
         criteriaCount++;
         string firstName = student.getFirstName();
-        string searchName = criteria.firstName.value();
+        string searchName = criteria.firstName;
         transform(firstName.begin(), firstName.end(), firstName.begin(), ::tolower);
         transform(searchName.begin(), searchName.end(), searchName.begin(), ::tolower);
         
@@ -86,10 +44,10 @@ bool SearchManager::matchesCriteria(const Student& student, const SearchCriteria
     }
     
     // Check last name
-    if (criteria.lastName.has_value()) {
+    if (!criteria.lastName.empty()) {
         criteriaCount++;
         string lastName = student.getLastName();
-        string searchName = criteria.lastName.value();
+        string searchName = criteria.lastName;
         transform(lastName.begin(), lastName.end(), lastName.begin(), ::tolower);
         transform(searchName.begin(), searchName.end(), searchName.begin(), ::tolower);
         
@@ -99,47 +57,47 @@ bool SearchManager::matchesCriteria(const Student& student, const SearchCriteria
     }
     
     // Check department
-    if (criteria.department.has_value()) {
+    if (!criteria.department.empty()) {
         criteriaCount++;
-        if (student.getDepartment() == criteria.department.value()) {
+        if (student.getDepartment() == criteria.department) {
             matchCount++;
         }
     }
     
     // Check age
-    if (criteria.age.has_value()) {
+    if (criteria.age != -1) {
         criteriaCount++;
-        if (student.getAge() == criteria.age.value()) {
+        if (student.getAge() == criteria.age) {
             matchCount++;
         }
     }
     
     // Check sex
-    if (criteria.sex.has_value()) {
+    if (criteria.sex != '\0') {
         criteriaCount++;
-        if (student.getSex() == criteria.sex.value()) {
+        if (student.getSex() == criteria.sex) {
             matchCount++;
         }
     }
     
     // Check year of study
-    if (criteria.yearOfStudy.has_value()) {
+    if (criteria.yearOfStudy != -1) {
         criteriaCount++;
-        if (student.getYearOfStudy() == criteria.yearOfStudy.value()) {
+        if (student.getYearOfStudy() == criteria.yearOfStudy) {
             matchCount++;
         }
     }
     
     // Check GPA range
-    if (criteria.minGPA.has_value() || criteria.maxGPA.has_value()) {
+    if (criteria.minGPA != -1.0 || criteria.maxGPA != -1.0) {
         criteriaCount++;
         double gpa = student.getGPA();
         bool gpaMatch = true;
         
-        if (criteria.minGPA.has_value() && gpa < criteria.minGPA.value()) {
+        if (criteria.minGPA != -1.0 && gpa < criteria.minGPA) {
             gpaMatch = false;
         }
-        if (criteria.maxGPA.has_value() && gpa > criteria.maxGPA.value()) {
+        if (criteria.maxGPA != -1.0 && gpa > criteria.maxGPA) {
             gpaMatch = false;
         }
         

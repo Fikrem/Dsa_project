@@ -68,14 +68,17 @@ void Student::calculateGPA() {
         const CourseResult& result = pair.second;
         double gradePoint = 0.0;
         
-        switch (result.grade) {
-            case 'A': gradePoint = 4.0; break;
-            case 'B': gradePoint = 3.0; break;
-            case 'C': gradePoint = 2.0; break;
-            case 'D': gradePoint = 1.0; break;
-            case 'F': gradePoint = 0.0; break;
-            default: gradePoint = 0.0;
-        }
+        // Use Grader's getGradePoint for consistency
+        if (result.grade == "A+" || result.grade == "A") gradePoint = 4.0;
+        else if (result.grade == "A-") gradePoint = 3.75;
+        else if (result.grade == "B+") gradePoint = 3.5;
+        else if (result.grade == "B") gradePoint = 3.0;
+        else if (result.grade == "B-") gradePoint = 2.75;
+        else if (result.grade == "C+") gradePoint = 2.5;
+        else if (result.grade == "C") gradePoint = 2.0;
+        else if (result.grade == "C-") gradePoint = 1.75;
+        else if (result.grade == "F") gradePoint = 0.0;
+        else gradePoint = 0.0;
         
         totalPoints += gradePoint * result.creditHours;
         totalCredits += result.creditHours;
@@ -158,7 +161,7 @@ Student Student::fromCSV(const string& csvLine) {
                 string courseCode = Utils::trim(parts[0]);
                 double assessment = stod(Utils::trim(parts[1]));
                 double finalExam = stod(Utils::trim(parts[2]));
-                char grade = Utils::trim(parts[3])[0];
+                string grade = Utils::trim(parts[3]);
                 int credits = stoi(Utils::trim(parts[4]));
                 
                 student.courses[courseCode] = CourseResult(assessment, finalExam, grade, credits);

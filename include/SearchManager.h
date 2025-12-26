@@ -4,7 +4,6 @@
 #include "Student.h"
 #include <vector>
 #include <string>
-#include <optional>
 
 using namespace std;
 
@@ -14,17 +13,18 @@ enum class SearchMode {
 };
 
 struct SearchCriteria {
-    optional<string> id;
-    optional<string> firstName;
-    optional<string> lastName;
-    optional<string> department;
-    optional<int> age;
-    optional<char> sex;
-    optional<int> yearOfStudy;
-    optional<double> minGPA;
-    optional<double> maxGPA;
+    string id;
+    string firstName;
+    string lastName;
+    string department;
+    int age;
+    char sex;
+    int yearOfStudy;
+    double minGPA;
+    double maxGPA;
     
-    SearchCriteria() = default;
+    SearchCriteria() : id(""), firstName(""), lastName(""), department(""),
+                      age(-1), sex('\0'), yearOfStudy(-1), minGPA(-1.0), maxGPA(-1.0) {}
 };
 
 class SearchManager {
@@ -34,15 +34,7 @@ public:
                                       const SearchCriteria& criteria,
                                       SearchMode mode = SearchMode::MATCH_ALL);
     
-    // Single parameter searches (optimized)
-    static Student* searchById(vector<Student>& students, const string& id);
-    static vector<Student> searchByName(const vector<Student>& students,
-                                             const string& name);
-    static vector<Student> searchByGPA(const vector<Student>& students,
-                                           double minGPA, double maxGPA);
-    
 private:
-    // Helper function to check if a student matches criteria
     static bool matchesCriteria(const Student& student, const SearchCriteria& criteria,
                                SearchMode mode);
 };

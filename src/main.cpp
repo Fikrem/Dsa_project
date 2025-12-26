@@ -79,7 +79,7 @@ int main() {
         } else if (userType == StudentManager::UserType::STUDENT) {
             studentMenu(manager, student);
         } else {
-            cout << "\n❌ Invalid credentials! Please try again." << endl;
+            cout << "\n Invalid credentials! Please try again." << endl;
             pause();
         }
     }
@@ -204,7 +204,7 @@ void addStudentMenu(StudentManager& manager) {
     vector<Course> availableCourses = manager.getCoursesForStudent(department, year);
     
     if (!availableCourses.empty()) {
-        cout << "\n📚 Available courses for " << department << " Year " << year << ":" << endl;
+        cout << "\n Available courses for " << department << " Year " << year << ":" << endl;
         for (size_t i = 0; i < availableCourses.size(); ++i) {
             cout << (i + 1) << ". " << availableCourses[i].getCourseCode() 
                      << " - " << availableCourses[i].getCourseName()
@@ -215,7 +215,7 @@ void addStudentMenu(StudentManager& manager) {
         
         // Initialize courses with default grades
         for (const Course& course : availableCourses) {
-            CourseResult result(0, 0, 'F', course.getCreditHours());
+            CourseResult result(0, 0, "F", course.getCreditHours());
             newStudent.addCourse(course.getCourseCode(), result);
         }
     }
@@ -308,7 +308,7 @@ void deleteStudentMenu(StudentManager& manager) {
     
     Student* student = manager.getStudent(id);
     if (!student) {
-        cout << "\n❌ Student not found!" << endl;
+        cout << "\nStudent not found!" << endl;
         pause();
         return;
     }
@@ -322,10 +322,10 @@ void deleteStudentMenu(StudentManager& manager) {
         if (manager.deleteStudent(id)) {
             cout << "\n✅ Student deleted successfully!" << endl;
         } else {
-            cout << "\n❌ Failed to delete student!" << endl;
+            cout << "\n Failed to delete student!" << endl;
         }
     } else {
-        cout << "\n❌ Deletion cancelled." << endl;
+        cout << "\n Deletion cancelled." << endl;
     }
     
     pause();
@@ -389,7 +389,7 @@ void searchStudentMenu(StudentManager& manager) {
     vector<Student> results = SearchManager::search(allStudents, criteria, mode);
     
     clearScreen();
-    cout << "\n🔍 Search Results:" << endl;
+    cout << "\nSearch Results:" << endl;
     TableFormatter::displayStudents(results);
     
     pause();
@@ -425,7 +425,7 @@ void sortStudentsMenu(StudentManager& manager) {
         case 6: field = SortField::ID; break;
         case 7: field = SortField::NAME; break;
         default:
-            cout << "\n❌ Invalid choice!" << endl;
+            cout << "\n Invalid choice!" << endl;
             pause();
             validChoice = false;
     }
@@ -442,10 +442,10 @@ void sortStudentsMenu(StudentManager& manager) {
     bool ascending = (orderChoice == 1);
     
     vector<Student> students = manager.getAllStudents();
-    Sorter::sort(students, {field}, ascending);
+    Sorter::sort(students, field, ascending);
     
     clearScreen();
-    cout << "\n📊 Sorted Students:" << endl;
+    cout << "\n Sorted Students:" << endl;
     TableFormatter::displayStudents(students);
     
     pause();
@@ -462,7 +462,7 @@ void gradeStudentMenu(StudentManager& manager) {
     
     Student* student = manager.getStudent(id);
     if (!student) {
-        cout << "\n❌ Student not found!" << endl;
+        cout << "\n Student not found!" << endl;
         pause();
         return;
     }
@@ -471,7 +471,7 @@ void gradeStudentMenu(StudentManager& manager) {
     
     const auto& courses = student->getCourses();
     if (courses.empty()) {
-        cout << "\n❌ Student has no enrolled courses!" << endl;
+        cout << "\n Student has no enrolled courses!" << endl;
         pause();
         return;
     }
@@ -489,7 +489,7 @@ void gradeStudentMenu(StudentManager& manager) {
     int choice = Utils::getInt();
     
     if (choice < 1 || choice > static_cast<int>(courseCodes.size())) {
-        cout << "\n❌ Invalid choice!" << endl;
+        cout << "\n Invalid choice!" << endl;
         pause();
         return;
     }
@@ -522,9 +522,9 @@ void gradeStudentMenu(StudentManager& manager) {
     cout << "New GPA: " << fixed << setprecision(2) << updatedStudent.getGPA() << endl;
     
     if (manager.updateStudent(id, updatedStudent)) {
-        cout << "\n✅ Grade updated successfully!" << endl;
+        cout << "\n Grade updated successfully!" << endl;
     } else {
-        cout << "\n❌ Failed to update grade!" << endl;
+        cout << "\nFailed to update grade!" << endl;
     }
     
     pause();
@@ -549,20 +549,20 @@ void undoMenu(StudentManager& manager) {
     cout << "╚════════════════════════════════════════════════════════════════╝" << endl;
     
     if (!manager.canUndo()) {
-        cout << "\n❌ No operations to undo!" << endl;
+        cout << "\n No operations to undo!" << endl;
         pause();
         return;
     }
     
     cout << "\nLast operation: " << manager.getLastOperation() << endl;
-    cout << "\n⚠️  Undo this operation? (y/n): ";
+    cout << "\n Undo this operation? (y/n): ";
     char confirm = Utils::getChar();
     
     if (confirm == 'y' || confirm == 'Y') {
         manager.undo();
-        cout << "\n✅ Operation undone successfully!" << endl;
+        cout << "\nOperation undone successfully!" << endl;
     } else {
-        cout << "\n❌ Undo cancelled." << endl;
+        cout << "\n Undo cancelled." << endl;
     }
     
     pause();

@@ -2,58 +2,42 @@ using namespace std;
 
 #include "../include/Grader.h"
 
-char Grader::calculateLetterGrade(double totalScore) {
-    if (totalScore >= 90) return 'A';
-    if (totalScore >= 80) return 'B';
-    if (totalScore >= 70) return 'C';
-    if (totalScore >= 60) return 'D';
-    return 'F';
+string Grader::calculateLetterGrade(double totalScore) {
+    if (totalScore >= 90) return "A+";
+    if (totalScore >= 85 && totalScore < 90) return "A";
+    if (totalScore >= 80 && totalScore < 85) return "A-";
+    if (totalScore >= 75 && totalScore < 80) return "B+";
+    if (totalScore >= 70 && totalScore < 75) return "B";
+    if (totalScore >= 65 && totalScore < 70) return "B-";
+    if (totalScore >= 60 && totalScore < 65) return "C+";
+    if (totalScore >= 55 && totalScore < 60) return "C";
+    if (totalScore >= 50 && totalScore < 55) return "C-";
+    if (totalScore < 50) return "F";
+    
+    return "F";
 }
 
-double Grader::getGradePoint(char grade) {
-    switch (grade) {
-        case 'A': return 4.0;
-        case 'B': return 3.0;
-        case 'C': return 2.0;
-        case 'D': return 1.0;
-        case 'F': return 0.0;
-        default: return 0.0;
-    }
-}
-
-double Grader::calculateSGPA(const Student& student) {
-    const auto& courses = student.getCourses();
-    
-    if (courses.empty()) {
-        return 0.0;
-    }
-    
-    double totalPoints = 0.0;
-    int totalCredits = 0;
-    
-    for (const auto& pair : courses) {
-        const CourseResult& result = pair.second;
-        double gradePoint = getGradePoint(result.grade);
-        totalPoints += gradePoint * result.creditHours;
-        totalCredits += result.creditHours;
-    }
-    
-    return totalCredits > 0 ? totalPoints / totalCredits : 0.0;
-}
-
-void Grader::updateStudentGPA(Student& student) {
-    student.calculateGPA();
+double Grader::getGradePoint(const string& grade) {
+    if (grade == "A+" || grade == "A") return 4.0;
+    if (grade == "A-") return 3.75;
+    if (grade == "B+") return 3.5;
+    if (grade == "B") return 3.0;
+    if (grade == "B-") return 2.75;
+    if (grade == "C+") return 2.5;
+    if (grade == "C") return 2.0;
+    if (grade == "C-") return 1.75;
+    if (grade == "F") return 0.0;
+    return 0.0;
 }
 
 void Grader::gradeCourse(Student& student, const string& courseCode,
                         double assessment, double finalExam, int creditHours) {
-    // Validate scores
     if (assessment < 0 || assessment > 50 || finalExam < 0 || finalExam > 50) {
         return;
     }
     
     double totalScore = assessment + finalExam;
-    char grade = calculateLetterGrade(totalScore);
+    string grade = calculateLetterGrade(totalScore);
     
     CourseResult result(assessment, finalExam, grade, creditHours);
     student.addCourse(courseCode, result);

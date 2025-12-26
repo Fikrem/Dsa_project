@@ -10,11 +10,11 @@ using namespace std;
 struct CourseResult {
     double assessment;    // Out of 50
     double finalExam;     // Out of 50
-    char grade;           // A, B, C, D, F
+    string grade;         // A+, A, A-, B+, B, B-, C+, C, C-, F
     int creditHours;
     
-    CourseResult() : assessment(0), finalExam(0), grade('F'), creditHours(0) {}
-    CourseResult(double assess, double final, char g, int credits)
+    CourseResult() : assessment(0), finalExam(0), grade("F"), creditHours(0) {}
+    CourseResult(double assess, double final, const string& g, int credits)
         : assessment(assess), finalExam(final), grade(g), creditHours(credits) {}
     
     double getTotalScore() const { return assessment + finalExam; }
