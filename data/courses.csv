@@ -1,0 +1,28 @@
+department,year_of_study,course_code,course_name,credit_hours
+SE,1,CS101,Introduction to Programming,3
+CS,1,MATH101,Calculus I,4
+SE,1,PHYS101,Physics I,3
+SE,1,ENG101,English Composition,2
+SE,2,CS201,Data Structures,4
+SE,2,CS202,Algorithms,3
+CS,2,MATH201,Discrete Mathematics,3
+CS,2,DB101,Database Systems,3
+CS,3,CS301,Operating Systems,4
+CS,3,CS302,Computer Networks,3
+SE,3,CS303,Software Engineering,3
+CS,3,AI101,Artificial Intelligence,4
+EE,1,EE101,Circuit Analysis,4
+EE,1,MATH101,Calculus I,4
+EE,1,PHYS101,Physics I,3
+EE,1,ENG101,English Composition,2
+EE,2,EE201,Electronics,4
+EE,2,EE202,Signals and Systems,3
+EE,2,MATH201,Differential Equations,3
+ME,1,ME101,Engineering Drawing,3
+ME,1,MATH101,Calculus I,4
+ME,1,PHYS101,Physics I,3
+ME,1,ENG101,English Composition,2
+ME,2,ME201,Thermodynamics,4
+ME,2,ME202,Mechanics of Materials,3
+ME,2,MATH201,Differential Equations,3
+SE,3,
